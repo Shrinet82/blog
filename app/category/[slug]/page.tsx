@@ -18,8 +18,6 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   let posts: Post[] = [];
   try {
     posts = await client.fetch(getPostsByCategoryQuery, { categorySlug: slug });
-  try {
-    posts = await client.fetch(getPostsByCategoryQuery, { categorySlug: slug });
   } catch (error) {
     console.error("Sanity category fetch error:", error);
   }

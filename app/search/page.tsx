@@ -37,28 +37,6 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
       }`;
       posts = await client.fetch(groqQuery, { searchQuery: `*${query}*` });
     }
-  try {
-    if (query.trim()) {
-      const groqQuery = `*[_type == "post" && (title match $searchQuery || excerpt match $searchQuery || body[].children[].text match $searchQuery)] | order(publishedAt desc) {
-        _id,
-        title,
-        slug,
-        excerpt,
-        publishedAt,
-        isLandmark,
-        mainImage,
-        author-> {
-          name,
-          role,
-          image
-        },
-        categories[]-> {
-          title,
-          slug
-        }
-      }`;
-      posts = await client.fetch(groqQuery, { searchQuery: `*${query}*` });
-    }
   } catch (error) {
     console.error("Sanity search fetch error:", error);
   }
