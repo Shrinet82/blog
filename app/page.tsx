@@ -64,20 +64,20 @@ export default async function HomePage() {
             {/* Dark gradient overlay for text readability */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
 
-            <div className="relative z-10 p-8 md:p-12 max-w-3xl">
-              <div className="flex items-center mb-4 space-x-3">
-                <span className="text-xs font-bold text-white uppercase tracking-widest">
+            <div className="relative z-10 p-6 md:p-12 max-w-3xl">
+              <div className="flex items-center mb-3 md:mb-4 space-x-3">
+                <span className="text-[10px] md:text-xs font-bold text-white uppercase tracking-widest">
                   {heroPost.categories?.[0]?.title || "Featured"}
                 </span>
                 <span className="text-white/70">•</span>
-                <span className="text-xs text-white/80">{heroDate}</span>
+                <span className="text-[10px] md:text-xs text-white/80">{heroDate}</span>
               </div>
               
-              <h1 className="text-3xl md:text-5xl font-display font-bold text-white mb-4 leading-tight group-hover:text-white/90 transition-colors">
+              <h1 className="text-2xl sm:text-3xl md:text-5xl font-display font-bold text-white mb-3 md:mb-4 leading-tight md:leading-tight group-hover:text-white/90 transition-colors line-clamp-4 sm:line-clamp-3">
                 {heroPost.title}
               </h1>
               {heroPost.excerpt && (
-                <p className="text-lg text-white/80 line-clamp-2 md:line-clamp-3 leading-relaxed">
+                <p className="text-base md:text-lg text-white/80 line-clamp-2 leading-relaxed">
                   {heroPost.excerpt}
                 </p>
               )}
