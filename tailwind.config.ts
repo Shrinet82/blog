@@ -1,0 +1,106 @@
+import type { Config } from "tailwindcss";
+
+const config: Config = {
+  darkMode: "class",
+  content: [
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        "background": "#f9f9ff",
+        "on-surface": "#111c2d",
+        "on-tertiary-fixed-variant": "#574425",
+        "secondary-container": "#d5e3fd",
+        "on-primary-fixed": "#131b2e",
+        "error": "#ba1a1a",
+        "on-background": "#111c2d",
+        "primary": "#000000",
+        "surface-container-high": "#dee8ff",
+        "surface-container": "#e7eeff",
+        "on-primary-fixed-variant": "#3f465c",
+        "secondary-fixed": "#d5e3fd",
+        "primary-fixed-dim": "#bec6e0",
+        "primary-fixed": "#dae2fd",
+        "on-tertiary-fixed": "#271901",
+        "on-tertiary-container": "#98805d",
+        "outline": "#76777d",
+        "on-error-container": "#93000a",
+        "tertiary-fixed": "#fcdeb5",
+        "tertiary": "#000000",
+        "on-tertiary": "#ffffff",
+        "surface-container-low": "#f0f3ff",
+        "surface-tint": "#565e74",
+        "on-primary-container": "#7c839b",
+        "inverse-primary": "#bec6e0",
+        "on-primary": "#ffffff",
+        "surface": "#f9f9ff",
+        "surface-dim": "#cfdaf2",
+        "surface-container-lowest": "#ffffff",
+        "outline-variant": "#c6c6cd",
+        "surface-bright": "#f9f9ff",
+        "on-secondary-fixed": "#0d1c2f",
+        "inverse-on-surface": "#ecf1ff",
+        "on-surface-variant": "#45464d",
+        "error-container": "#ffdad6",
+        "on-secondary": "#ffffff",
+        "on-secondary-fixed-variant": "#3a485c",
+        "inverse-surface": "#263143",
+        "surface-variant": "#d8e3fb",
+        "tertiary-fixed-dim": "#dec29a",
+        "primary-container": "#131b2e",
+        "tertiary-container": "#271901",
+        "on-error": "#ffffff",
+        "surface-container-highest": "#d8e3fb",
+        "secondary-fixed-dim": "#b9c7e0",
+        "on-secondary-container": "#57657b",
+        "secondary": "#515f74"
+      },
+      borderRadius: {
+        "DEFAULT": "0.125rem",
+        "lg": "0.25rem",
+        "xl": "0.5rem",
+        "full": "0.75rem"
+      },
+      spacing: {
+        "content-width": "720px",
+        "margin-desktop": "40px",
+        "gutter": "24px",
+        "container-max": "1280px",
+        "unit": "8px",
+        "margin-mobile": "16px"
+      },
+      fontFamily: {
+        "label-md": ["var(--font-inter)", "sans-serif"],
+        "body-sm": ["var(--font-inter)", "sans-serif"],
+        "headline-lg-mobile": ["var(--font-merriweather)", "serif"],
+        "body-md": ["var(--font-inter)", "sans-serif"],
+        "headline-sm": ["var(--font-merriweather)", "serif"],
+        "body-lg": ["var(--font-inter)", "sans-serif"],
+        "headline-lg": ["var(--font-merriweather)", "serif"],
+        "display": ["var(--font-merriweather)", "serif"],
+        "label-lg": ["var(--font-inter)", "sans-serif"],
+        "headline-md": ["var(--font-merriweather)", "serif"]
+      },
+      fontSize: {
+        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+        "body-sm": ["14px", { "lineHeight": "22px", "fontWeight": "400" }],
+        "headline-lg-mobile": ["28px", { "lineHeight": "38px", "fontWeight": "700" }],
+        "body-md": ["16px", { "lineHeight": "26px", "fontWeight": "400" }],
+        "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "700" }],
+        "body-lg": ["18px", { "lineHeight": "30px", "fontWeight": "400" }],
+        "headline-lg": ["32px", { "lineHeight": "44px", "fontWeight": "700" }],
+        "display": ["48px", { "lineHeight": "60px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+        "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "700" }]
+      }
+    },
+  },
+  plugins: [
+    require("@tailwindcss/forms"),
+    require("@tailwindcss/container-queries"),
+  ],
+};
+export default config;
