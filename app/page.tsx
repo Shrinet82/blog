@@ -20,23 +20,21 @@ export default async function HomePage() {
     posts = [];
   }
 
-  // Segment posts:
   // 1. Hero post (Landmark, or first item)
   const heroPost = posts.find((p) => p.isLandmark) || posts[0];
 
-  // 2. Case Laws (latest 3 for the sidebar)
+  // 2. Case Laws (latest 5 for the sidebar)
   const caseLaws = posts.filter(
     (p) =>
       p.categories?.some(
         (c) => c.slug.current === "case-laws" || c.slug.current === "constitutional-law"
       )
-  ).slice(0, 3);
+  ).slice(0, 5);
 
-  // If we don't have enough case laws, fill with latest non-hero posts
-  const sidebarPosts = caseLaws.length > 0 ? caseLaws : posts.filter((p) => p._id !== heroPost?._id).slice(0, 3);
+  const sidebarPosts = caseLaws.length > 0 ? caseLaws : posts.filter((p) => p._id !== heroPost?._id).slice(0, 5);
 
-  // 3. Recent Publications (exclude hero, show up to 3)
-  const recentPublications = posts.filter((p) => p._id !== heroPost?._id).slice(0, 3);
+  // 3. Main Feed (exclude hero)
+  const mainFeedPosts = posts.filter((p) => p._id !== heroPost?._id);
 
   const heroDate = heroPost
     ? new Date(heroPost.publishedAt).toLocaleDateString("en-US", {
@@ -47,103 +45,99 @@ export default async function HomePage() {
     : "";
 
   return (
-    <div className="w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-8">
-      {/* Hero Section */}
-      <section className="grid grid-cols-1 md:grid-cols-12 gap-gutter mb-16">
-        {heroPost && (
+    <div className="w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-12">
+      {/* Hero Section (Overlay Style) */}
+      {heroPost && (
+        <section className="mb-16">
           <Link
             href={`/article/${heroPost.slug.current}`}
-            className="md:col-span-8 group cursor-pointer"
+            className="group block relative w-full h-[60vh] min-h-[400px] overflow-hidden bg-surface-variant flex items-end"
           >
-            <div>
-              <div className="flex items-center mb-4 space-x-2">
-                <span className="px-2 py-1 bg-surface-container-high text-on-surface-variant text-label-md font-label-md rounded-DEFAULT uppercase tracking-wider">
-                  {heroPost.categories?.[0]?.title || "Daily Current Affairs"}
+            {heroPost.mainImage && (
+              <img
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                src={urlForImage(heroPost.mainImage)}
+                alt={heroPost.title}
+              />
+            )}
+            
+            {/* Dark gradient overlay for text readability */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+
+            <div className="relative z-10 p-8 md:p-12 max-w-3xl">
+              <div className="flex items-center mb-4 space-x-3">
+                <span className="text-xs font-bold text-white uppercase tracking-widest">
+                  {heroPost.categories?.[0]?.title || "Featured"}
                 </span>
-                <span className="text-body-sm font-body-sm text-outline">{heroDate}</span>
+                <span className="text-white/70">•</span>
+                <span className="text-xs text-white/80">{heroDate}</span>
               </div>
               
-              {heroPost.mainImage ? (
-                <div className="relative w-full aspect-video mb-6 overflow-hidden rounded-DEFAULT border border-outline-variant">
-                  <img
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    src={urlForImage(heroPost.mainImage)}
-                    alt={heroPost.title}
-                  />
-                </div>
-              ) : (
-                <div className="relative w-full aspect-video mb-6 overflow-hidden rounded-DEFAULT border border-outline-variant bg-surface-variant flex items-center justify-center">
-                  <span className="text-on-surface-variant">No Image Available</span>
-                </div>
-              )}
-
-              <h1 className="text-headline-lg-mobile md:text-headline-lg font-headline-lg-mobile md:font-headline-lg text-on-surface mb-3 group-hover:text-secondary transition-colors">
+              <h1 className="text-3xl md:text-5xl font-display font-bold text-white mb-4 leading-tight group-hover:text-white/90 transition-colors">
                 {heroPost.title}
               </h1>
               {heroPost.excerpt && (
-                <p className="text-body-lg font-body-lg text-on-surface-variant line-clamp-3">
+                <p className="text-lg text-white/80 line-clamp-2 md:line-clamp-3 leading-relaxed">
                   {heroPost.excerpt}
                 </p>
               )}
             </div>
           </Link>
-        )}
+        </section>
+      )}
 
-        {/* Sidebar Precedents */}
-        <div className="md:col-span-4 flex flex-col pt-8 md:pt-0 border-t md:border-t-0 md:border-l border-outline-variant md:pl-gutter">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-headline-sm font-headline-sm text-on-surface border-b-2 border-primary pb-1 inline-block">
-              Latest Case Laws
+      {/* Main Content: 2/3 - 1/3 Split */}
+      <div className="flex flex-col lg:flex-row gap-16">
+        
+        {/* Main Feed (Left 2/3) */}
+        <main className="lg:w-2/3">
+          <div className="mb-8 border-b border-outline-variant/30 pb-4">
+            <h2 className="text-xl font-display font-bold text-on-surface">
+              Latest from ABHISHAL
             </h2>
-            <Link
-              href="/category/case-laws"
-              className="text-label-md font-label-md text-secondary hover:text-primary transition-colors flex items-center cursor-pointer"
-            >
-              View All{" "}
-              <span className="material-symbols-outlined ml-1" style={{ fontSize: "16px" }}>
-                arrow_forward
-              </span>
-            </Link>
           </div>
+          
+          <div className="flex flex-col">
+            {mainFeedPosts.length > 0 ? (
+              mainFeedPosts.map((post) => (
+                <ArticleCard key={post._id} post={post} variant="row" />
+              ))
+            ) : (
+              <p className="text-on-surface-variant py-8">No articles found.</p>
+            )}
+          </div>
+        </main>
 
-          <div className="flex flex-col space-y-6">
-            {sidebarPosts.map((post, idx) => (
-              <div key={post._id}>
-                {idx > 0 && <hr className="border-outline-variant border-opacity-50 mb-6" />}
-                <Link href={`/article/${post.slug.current}`} className="group block cursor-pointer">
-                  <span className="text-label-md font-label-md text-secondary block mb-1">
-                    {post.categories?.[0]?.title || "Precedent"}
-                  </span>
-                  <h3 className="text-body-md font-body-md font-bold text-on-surface group-hover:text-primary transition-colors leading-snug mb-1">
-                    {post.title}
-                  </h3>
-                  <p className="text-label-md font-label-md text-outline font-normal">
-                    {new Date(post.publishedAt).toLocaleDateString("en-US", {
-                      month: "short",
-                      day: "numeric",
-                      year: "numeric",
-                    })}
-                  </p>
+        {/* Sidebar (Right 1/3) */}
+        <aside className="lg:w-1/3">
+          <div className="sticky top-28">
+            <div className="mb-6 border-b border-outline-variant/30 pb-4">
+              <h2 className="text-sm font-bold text-on-surface uppercase tracking-wider">
+                Trending Case Laws
+              </h2>
+            </div>
+            
+            <div className="flex flex-col divide-y divide-outline-variant/10">
+              {sidebarPosts.map((post) => (
+                <ArticleCard key={post._id} post={post} variant="compact" />
+              ))}
+            </div>
+
+            <div className="mt-12 mb-6 border-b border-outline-variant/30 pb-4">
+              <h2 className="text-sm font-bold text-on-surface uppercase tracking-wider">
+                Discover more
+              </h2>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {['Constitutional Law', 'Current Affairs', 'General Studies', 'Criminal Law', 'Editorials'].map((tag) => (
+                <Link key={tag} href={`/search?q=${tag}`} className="bg-surface-container-low text-on-surface-variant hover:bg-outline-variant/20 px-3 py-1.5 text-sm rounded-sm transition-colors">
+                  {tag}
                 </Link>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
-
-      <hr className="border-outline-variant w-full mb-12" />
-
-      {/* Grid of Recent Publications */}
-      <section>
-        <div className="flex items-center justify-between mb-8">
-          <h2 className="text-headline-md font-headline-md text-on-surface">Recent Publications</h2>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
-          {recentPublications.map((post) => (
-            <ArticleCard key={post._id} post={post} variant="grid" />
-          ))}
-        </div>
-      </section>
+        </aside>
+      </div>
     </div>
   );
 }

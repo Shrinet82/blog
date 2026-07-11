@@ -18,7 +18,7 @@ const merriweather = Merriweather({
 });
 
 export const metadata: Metadata = {
-  title: "Lex Academia | Headless Academic Legal Blog",
+  title: "ABHISHAL | Headless Academic Legal Blog",
   description:
     "Scholarly discipline for legal excellence. Analysis of daily current affairs, landmark precedents, and constitutional law.",
 };
