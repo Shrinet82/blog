@@ -1,6 +1,7 @@
 import { client } from "@/sanity/lib/client";
 import { getJournalsQuery } from "@/sanity/lib/queries";
 import { Journal } from "@/sanity/lib/types";
+import Link from "next/link";
 
 export const revalidate = 60;
 
@@ -47,25 +48,24 @@ export default async function JournalsPage() {
                   )}
                 </div>
                 
-                <h2 className="text-2xl font-display font-bold text-on-surface mb-3">
-                  {journal.title}
+                <h2 className="text-2xl font-display font-bold text-on-surface mb-3 hover:text-primary transition-colors">
+                  <Link href={`/journal/${journal.slug.current}`}>
+                    {journal.title}
+                  </Link>
                 </h2>
                 
                 <p className="text-body-md text-on-surface-variant leading-relaxed mb-6">
                   {journal.description}
                 </p>
                 
-                {journal.journalFileUrl ? (
-                  <div className="flex gap-4">
-                    <a
-                      href={journal.journalFileUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center px-5 py-2 bg-primary text-on-primary text-sm font-bold rounded-sm hover:bg-primary/90 transition-colors"
-                    >
-                      <span className="material-symbols-outlined mr-2 text-[18px]">visibility</span>
-                      Read Online
-                    </a>
+                <div className="flex flex-wrap gap-4">
+                  <Link
+                    href={`/journal/${journal.slug.current}`}
+                    className="inline-flex items-center px-5 py-2 bg-primary text-on-primary text-sm font-bold rounded-sm hover:bg-primary/90 transition-colors"
+                  >
+                    Read Full Synopsis
+                  </Link>
+                  {journal.journalFileUrl && (
                     <a
                       href={`${journal.journalFileUrl}?dl=`}
                       className="inline-flex items-center px-5 py-2 bg-surface-variant text-on-surface-variant text-sm font-bold rounded-sm hover:bg-outline-variant/30 transition-colors border border-outline-variant/30"
@@ -73,10 +73,8 @@ export default async function JournalsPage() {
                       <span className="material-symbols-outlined mr-2 text-[18px]">download</span>
                       Download PDF
                     </a>
-                  </div>
-                ) : (
-                  <span className="text-sm font-bold text-on-surface-variant italic">File not available</span>
-                )}
+                  )}
+                </div>
               </div>
             </article>
           ))}

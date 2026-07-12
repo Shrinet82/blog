@@ -45,5 +45,6 @@ export interface Journal {
   slug: { current: string };
   publishDate?: string;
   description: string;
+  body?: any;
   journalFileUrl?: string;
 }

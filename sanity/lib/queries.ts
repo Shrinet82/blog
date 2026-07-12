@@ -78,3 +78,13 @@ export const getJournalsQuery = `*[_type == "journal"] | order(publishDate desc)
   description,
   "journalFileUrl": journalFile.asset->url
 }`;
+
+export const getJournalBySlugQuery = `*[_type == "journal" && slug.current == $slug][0] {
+  _id,
+  title,
+  slug,
+  publishDate,
+  description,
+  body,
+  "journalFileUrl": journalFile.asset->url
+}`;

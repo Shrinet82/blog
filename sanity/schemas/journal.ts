@@ -30,7 +30,26 @@ export default defineType({
       name: "description",
       title: "Description / Abstract",
       type: "text",
+      description: "A short summary shown on the journals list page.",
       validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "body",
+      title: "Full Synopsis / Article Body",
+      type: "array",
+      of: [
+        {
+          type: "block",
+          styles: [
+            { title: "Normal", value: "normal" },
+            { title: "H2", value: "h2" },
+            { title: "H3", value: "h3" },
+            { title: "Quote", value: "blockquote" },
+          ],
+        },
+        { type: "image", options: { hotspot: true } },
+      ],
+      description: "The full text shown on the dedicated journal page.",
     }),
     defineField({
       name: "journalFile",
