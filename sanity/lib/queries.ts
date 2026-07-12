@@ -1,4 +1,4 @@
-import { Post } from "./types";
+import { Post, Book, Journal } from "./types";
 
 export const getPostsQuery = `*[_type == "post"] | order(publishedAt desc) {
   _id,
@@ -57,4 +57,26 @@ export const getPostsByCategoryQuery = `*[_type == "post" && references(*[_type 
     title,
     slug
   }
+}`;
+
+export const getBooksQuery = `*[_type == "book"] | order(publishDate desc) {
+  _id,
+  title,
+  slug,
+  coverImage,
+  author,
+  publishDate,
+  description,
+  amazonLink,
+  flipkartLink,
+  otherLink
+}`;
+
+export const getJournalsQuery = `*[_type == "journal"] | order(publishDate desc) {
+  _id,
+  title,
+  slug,
+  publishDate,
+  description,
+  "journalFileUrl": journalFile.asset->url
 }`;

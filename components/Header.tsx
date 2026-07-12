@@ -68,6 +68,18 @@ export default function Header() {
             >
               General Studies
             </Link>
+            <Link
+              href="/books"
+              className="text-body-sm text-on-surface-variant hover:text-on-surface transition-colors duration-200"
+            >
+              Books
+            </Link>
+            <Link
+              href="/journals"
+              className="text-body-sm text-on-surface-variant hover:text-on-surface transition-colors duration-200"
+            >
+              Journals
+            </Link>
           </nav>
         </div>
 
@@ -109,7 +121,7 @@ export default function Header() {
 
       {/* Mobile Menu Dropdown */}
       <div 
-        className={`md:hidden absolute top-20 left-0 w-full bg-surface border-b border-outline-variant/30 overflow-hidden transition-all duration-300 ease-in-out ${isMobileMenuOpen ? "max-h-64 opacity-100 py-4" : "max-h-0 opacity-0 py-0"}`}
+        className={`md:hidden absolute top-20 left-0 w-full bg-surface border-b border-outline-variant/30 overflow-hidden transition-all duration-300 ease-in-out ${isMobileMenuOpen ? "max-h-96 opacity-100 py-4" : "max-h-0 opacity-0 py-0"}`}
       >
         <div className="flex flex-col space-y-4 px-margin-mobile">
           <Link
@@ -132,6 +144,20 @@ export default function Header() {
             className="text-body-lg text-on-surface-variant hover:text-on-surface transition-colors duration-200 font-medium"
           >
             General Studies
+          </Link>
+          <Link
+            href="/books"
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="text-body-lg text-on-surface-variant hover:text-on-surface transition-colors duration-200 font-medium"
+          >
+            Books
+          </Link>
+          <Link
+            href="/journals"
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="text-body-lg text-on-surface-variant hover:text-on-surface transition-colors duration-200 font-medium"
+          >
+            Journals
           </Link>
           
           <div className="pt-2 w-full">
