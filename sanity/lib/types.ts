@@ -33,9 +33,10 @@ export interface Book {
   author?: string;
   publishDate?: string;
   description: string;
-  amazonLink?: string;
-  flipkartLink?: string;
-  otherLink?: string;
+  purchaseLinks?: {
+    platform: string;
+    url: string;
+  }[];
 }
 
 export interface Journal {

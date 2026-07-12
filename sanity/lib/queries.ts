@@ -67,9 +67,7 @@ export const getBooksQuery = `*[_type == "book"] | order(publishDate desc) {
   author,
   publishDate,
   description,
-  amazonLink,
-  flipkartLink,
-  otherLink
+  purchaseLinks
 }`;
 
 export const getJournalsQuery = `*[_type == "journal"] | order(publishDate desc) {

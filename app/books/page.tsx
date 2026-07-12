@@ -53,36 +53,25 @@ export default async function BooksPage() {
                 </p>
                 
                 <div className="flex flex-wrap gap-3 mt-auto">
-                  {book.amazonLink && (
-                    <a
-                      href={book.amazonLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="px-4 py-2 bg-[#FF9900] text-white text-sm font-bold rounded-sm hover:bg-[#E68A00] transition-colors"
-                    >
-                      Amazon
-                    </a>
-                  )}
-                  {book.flipkartLink && (
-                    <a
-                      href={book.flipkartLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="px-4 py-2 bg-[#047BD5] text-white text-sm font-bold rounded-sm hover:bg-[#0362AA] transition-colors"
-                    >
-                      Flipkart
-                    </a>
-                  )}
-                  {book.otherLink && (
-                    <a
-                      href={book.otherLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="px-4 py-2 bg-primary text-on-primary text-sm font-bold rounded-sm hover:bg-primary/90 transition-colors"
-                    >
-                      Buy Now
-                    </a>
-                  )}
+                  {book.purchaseLinks?.map((link, index) => {
+                    const platformLower = link.platform.toLowerCase();
+                    let bgColor = "bg-primary text-on-primary hover:bg-primary/90";
+                    
+                    if (platformLower.includes("amazon")) bgColor = "bg-[#FF9900] text-white hover:bg-[#E68A00]";
+                    else if (platformLower.includes("flipkart")) bgColor = "bg-[#047BD5] text-white hover:bg-[#0362AA]";
+                    
+                    return (
+                      <a
+                        key={index}
+                        href={link.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`px-4 py-2 text-sm font-bold rounded-sm transition-colors ${bgColor}`}
+                      >
+                        {link.platform}
+                      </a>
+                    );
+                  })}
                 </div>
               </div>
             </article>

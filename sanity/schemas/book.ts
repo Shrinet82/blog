@@ -48,22 +48,29 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "amazonLink",
-      title: "Amazon Link",
-      type: "url",
-      description: "Link to purchase on Amazon",
-    }),
-    defineField({
-      name: "flipkartLink",
-      title: "Flipkart Link",
-      type: "url",
-      description: "Link to purchase on Flipkart",
-    }),
-    defineField({
-      name: "otherLink",
-      title: "Other Purchase Link",
-      type: "url",
-      description: "Link to purchase on any other platform",
+      name: "purchaseLinks",
+      title: "Purchase Links",
+      type: "array",
+      of: [
+        {
+          type: "object",
+          fields: [
+            {
+              name: "platform",
+              title: "Platform Name (e.g. Amazon, Flipkart, Notion Press)",
+              type: "string",
+              validation: (Rule) => Rule.required(),
+            },
+            {
+              name: "url",
+              title: "Link URL",
+              type: "url",
+              validation: (Rule) => Rule.required(),
+            },
+          ],
+        },
+      ],
+      description: "Add links to where this book can be purchased.",
     }),
   ],
   preview: {
