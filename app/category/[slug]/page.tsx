@@ -42,6 +42,7 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
     "case-laws": "Case Laws",
     "constitutional-law": "Constitutional Law",
     "current-affairs": "Daily Current Affairs",
+    "daily-current-affairs": "Daily Current Affairs",
     "general-studies": "General Studies",
     "legal-theory": "Legal Theory",
   };
