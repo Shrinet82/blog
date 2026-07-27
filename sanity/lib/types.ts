@@ -25,6 +25,10 @@ export interface Post {
   isLandmark?: boolean;
 }
 
+export interface CurrentAffairs extends Omit<Post, 'categories'> {}
+export interface CaseLaw extends Omit<Post, 'categories'> {}
+export interface GeneralStudies extends Omit<Post, 'categories'> {}
+
 export interface Book {
   _id: string;
   title: string;
