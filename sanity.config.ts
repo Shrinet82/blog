@@ -15,4 +15,15 @@ export default defineConfig({
   schema: {
     types: schemaTypes,
   },
+  document: {
+    newDocumentOptions: (prev) => {
+      return prev.filter((templateItem) => templateItem.templateId !== "category");
+    },
+    actions: (prev, context) => {
+      if (context.schemaType === "category") {
+        return prev.filter((originalAction) => originalAction.action !== "duplicate");
+      }
+      return prev;
+    },
+  },
 });
