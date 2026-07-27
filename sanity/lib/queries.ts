@@ -88,3 +88,22 @@ export const getJournalBySlugQuery = `*[_type == "journal" && slug.current == $s
   body,
   "journalFileUrl": journalFile.asset->url
 }`;
+
+export const getActsLawsQuery = `*[_type == "actLaw"] | order(publishDate desc) {
+  _id,
+  title,
+  slug,
+  publishDate,
+  description,
+  "actFileUrl": actFile.asset->url
+}`;
+
+export const getActLawBySlugQuery = `*[_type == "actLaw" && slug.current == $slug][0] {
+  _id,
+  title,
+  slug,
+  publishDate,
+  description,
+  body,
+  "actFileUrl": actFile.asset->url
+}`;

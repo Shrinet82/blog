@@ -63,7 +63,7 @@ export default function Header() {
               Case Laws
             </Link>
             <Link
-              href="/category/acts-laws"
+              href="/acts-laws"
               className="text-body-sm text-on-surface-variant hover:text-on-surface transition-colors duration-200"
             >
               Acts/Laws
@@ -145,7 +145,7 @@ export default function Header() {
             Case Laws
           </Link>
           <Link
-            href="/category/acts-laws"
+            href="/acts-laws"
             onClick={() => setIsMobileMenuOpen(false)}
             className="text-body-lg text-on-surface-variant hover:text-on-surface transition-colors duration-200 font-medium"
           >

@@ -48,3 +48,13 @@ export interface Journal {
   body?: any;
   journalFileUrl?: string;
 }
+
+export interface ActLaw {
+  _id: string;
+  title: string;
+  slug: { current: string };
+  publishDate?: string;
+  description: string;
+  body?: any;
+  actFileUrl?: string;
+}
