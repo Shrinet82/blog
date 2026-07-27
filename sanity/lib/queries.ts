@@ -40,7 +40,7 @@ export const getPostBySlugQuery = `*[_type == "post" && slug.current == $slug][0
   }
 }`;
 
-export const getPostsByCategoryQuery = `*[_type == "post" && references(*[_type == "category" && (slug.current == $categorySlug || slug.current == "daily-" + $categorySlug || slug.current == "current-affairs")]._id)] | order(publishedAt desc) {
+export const getPostsByCategoryQuery = `*[_type == "post" && references(*[_type == "category" && (slug.current == $categorySlug || slug.current == "daily-" + $categorySlug || ($categorySlug == "daily-current-affairs" && slug.current == "current-affairs"))]._id)] | order(publishedAt desc) {
   _id,
   title,
   slug,
