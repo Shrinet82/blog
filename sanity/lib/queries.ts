@@ -1,6 +1,6 @@
 import { Post, Book, Journal } from "./types";
 
-export const getPostsQuery = `*[_type in ["post", "currentAffairs", "caseLaw", "generalStudies"]] | order(publishedAt desc) {
+export const getPostsQuery = `*[_type in ["currentAffairs", "caseLaw", "generalStudies"]] | order(publishedAt desc) {
   _id,
   _type,
   title,
@@ -22,7 +22,7 @@ export const getPostsQuery = `*[_type in ["post", "currentAffairs", "caseLaw", "
   )
 }`;
 
-export const getPostBySlugQuery = `*[_type in ["post", "currentAffairs", "caseLaw", "generalStudies"] && slug.current == $slug][0] {
+export const getPostBySlugQuery = `*[_type in ["currentAffairs", "caseLaw", "generalStudies"] && slug.current == $slug][0] {
   _id,
   _type,
   title,
@@ -50,8 +50,7 @@ export const getPostsByCategoryQuery = `*[
   (
     (_type == "currentAffairs" && ($categorySlug in ["current-affairs", "daily-current-affairs"])) ||
     (_type == "caseLaw" && ($categorySlug in ["case-laws", "constitutional-law", "criminal-law"])) ||
-    (_type == "generalStudies" && ($categorySlug in ["general-studies", "editorial"])) ||
-    (_type == "post" && references(*[_type == "category" && (slug.current == $categorySlug || slug.current == "daily-" + $categorySlug || ($categorySlug == "daily-current-affairs" && slug.current == "current-affairs"))]._id))
+    (_type == "generalStudies" && ($categorySlug in ["general-studies", "editorial"]))
   )
 ] | order(publishedAt desc) {
   _id,
