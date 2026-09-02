@@ -40,8 +40,8 @@ const NAV_LINKS = [
   { href: "/category/case-laws", label: "Case Laws" },
   { href: "/acts-laws", label: "Acts/Laws" },
   { href: "/category/general-studies", label: "General Studies" },
-  { href: "/books", label: "Books" },
   { href: "/journals", label: "Journals" },
+  { href: "/books", label: "Books" },
 ];
 
 export default function Header() {
