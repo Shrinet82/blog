@@ -5,78 +5,64 @@ import { urlForImage } from "@/sanity/lib/image";
 interface ArticleCardProps {
   post: Post;
   variant?: "grid" | "row" | "compact";
+  citation?: string;
 }
 
-export default function ArticleCard({ post, variant = "grid" }: ArticleCardProps) {
+export default function ArticleCard({ post, variant = "grid", citation }: ArticleCardProps) {
   const formattedDate = new Date(post.publishedAt).toLocaleDateString("en-US", {
     month: "short",
     day: "numeric",
     year: "numeric",
   });
+  const shortDate = new Date(post.publishedAt)
+    .toLocaleDateString("en-US", { month: "short", day: "2-digit" })
+    .toUpperCase();
 
   const categoryTitle = post.categories?.[0]?.title || "General";
   const postUrl = `/article/${post.slug.current}`;
-  
-  // Compact variant for sidebars
+
+  // Compact variant for sidebars (marginalia / trending)
   if (variant === "compact") {
     return (
-      <Link href={postUrl} className="group block py-4">
-        <div className="flex items-center gap-4">
-          <div className="flex-1">
-            <span className="text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-1 block">
-              {categoryTitle}
-            </span>
-            <h3 className="text-body-md font-bold text-on-surface group-hover:text-primary transition-colors leading-snug mb-1 line-clamp-2">
-              {post.title}
-            </h3>
-            <p className="text-xs text-outline font-normal">
-              {formattedDate}
-            </p>
-          </div>
-          {post.mainImage && (
-            <div className="w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0 bg-surface-variant overflow-hidden">
-              <img
-                src={urlForImage(post.mainImage)}
-                alt={post.title}
-                className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity"
-              />
-            </div>
-          )}
-        </div>
+      <Link href={postUrl} className="group block py-3.5 pl-4 border-l-2 border-outline-variant hover:border-primary transition-colors">
+        {citation && <span className="block text-xs font-num text-primary mb-1">{citation}</span>}
+        <span className="block font-body-lg italic text-body-md text-on-surface group-hover:text-primary transition-colors leading-snug">
+          {post.title}
+        </span>
+        <span className="block text-xs font-num text-on-surface-variant mt-1 uppercase">
+          {categoryTitle} · {formattedDate}
+        </span>
       </Link>
     );
   }
 
-  // Row variant for the main feed (Medium style)
+  // Row variant for the main feed (newspaper index style)
   if (variant === "row") {
     return (
-      <Link href={postUrl} className="block group py-8 border-b border-outline-variant/20 last:border-0">
-        <div className="flex flex-col md:flex-row gap-8 items-center md:items-start justify-between">
-          <div className="flex-1 order-2 md:order-1 max-w-2xl">
-            <div className="flex items-center gap-3 mb-2">
-              <span className="text-xs font-bold text-on-surface-variant uppercase tracking-wider">
-                {categoryTitle}
-              </span>
-              <span className="text-xs text-outline font-normal">
-                {formattedDate}
-              </span>
-            </div>
-            <h2 className="text-2xl font-bold font-headline-sm text-on-surface mb-3 group-hover:text-primary transition-colors leading-tight">
+      <Link href={postUrl} className="group grid grid-cols-1 sm:grid-cols-[74px_1fr] gap-2 sm:gap-4 py-5 border-b border-outline-variant">
+        <div>
+          {citation && <span className="block text-xs font-num text-primary">{citation}</span>}
+          <span className="block text-xs font-num text-on-surface-variant mt-1.5">{shortDate}</span>
+        </div>
+        <div className="flex flex-col md:flex-row gap-6 items-start justify-between">
+          <div className="flex-1 max-w-2xl">
+            <span className="block italic text-body-sm text-on-surface-variant mb-1.5">
+              {categoryTitle}
+            </span>
+            <h3 className="text-lg font-display font-semibold text-on-surface mb-2 group-hover:text-primary transition-colors leading-snug">
               {post.title}
-            </h2>
+            </h3>
             {post.excerpt && (
-              <p className="text-base text-on-surface-variant line-clamp-3 leading-relaxed mb-4">
+              <p className="text-sm text-on-surface-variant line-clamp-2 leading-relaxed max-w-[64ch]">
                 {post.excerpt}
               </p>
             )}
-            <div className="flex items-center gap-2">
-              <span className="text-xs text-on-surface-variant bg-surface-container-low px-2 py-1 rounded-full">
-                5 min read
-              </span>
-            </div>
+            <span className="inline-block text-xs font-num text-on-surface-variant mt-2">
+              5 min read
+            </span>
           </div>
           {post.mainImage && (
-            <div className="order-1 md:order-2 w-full md:w-48 lg:w-56 aspect-[3/2] flex-shrink-0 bg-surface-variant overflow-hidden">
+            <div className="w-full md:w-40 aspect-[3/2] flex-shrink-0 bg-surface-variant overflow-hidden">
               <img
                 src={urlForImage(post.mainImage)}
                 alt={post.title}

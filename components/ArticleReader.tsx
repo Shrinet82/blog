@@ -89,7 +89,7 @@ export default function ArticleReader({ post }: ArticleReaderProps) {
         );
       },
       blockquote: ({ children }: any) => (
-        <blockquote className="my-8 pl-6 border-l-[3px] border-[#2563EB] bg-[#F8FAFC] py-4 pr-4 text-body-md font-body-md italic text-[#334155] rounded-r">
+        <blockquote className="my-8 pl-6 border-l-[3px] border-[#A32424] bg-[#F5F1E8] py-4 pr-4 text-body-md font-body-md italic text-[#5C594E] rounded-r">
           {children}
         </blockquote>
       ),
@@ -101,7 +101,7 @@ export default function ArticleReader({ post }: ArticleReaderProps) {
     listItem: {
       bullet: ({ children }: any) => (
         <li className="flex items-start">
-          <span className="text-[#2563EB] mr-3 mt-1">•</span>
+          <span className="text-[#A32424] mr-3 mt-1">•</span>
           <span>{children}</span>
         </li>
       ),
@@ -128,7 +128,7 @@ export default function ArticleReader({ post }: ArticleReaderProps) {
     <>
       {/* Reading Progress Bar */}
       <div
-        className="reading-progress h-[2px] bg-[#2563EB] fixed top-0 left-0 z-[60]"
+        className="reading-progress h-[2px] bg-[#A32424] fixed top-0 left-0 z-[60]"
         style={{ width: `${progress}%` }}
       ></div>
 
@@ -195,11 +195,11 @@ export default function ArticleReader({ post }: ArticleReaderProps) {
           {/* Article Header */}
           <header className="mb-10">
             <div className="flex gap-2 mb-4">
-              <span className="px-2 py-1 bg-[#F1F5F9] text-[#334155] rounded text-label-md font-label-md uppercase tracking-wider border border-[#E2E8F0]">
+              <span className="px-2 py-1 bg-[#F5F1E8] text-[#5C594E] rounded text-label-md font-label-md uppercase tracking-wider border border-[#DAD5C6]">
                 {post.categories?.[0]?.title || "Publication"}
               </span>
               {post.isLandmark && (
-                <span className="px-2 py-1 bg-[#F1F5F9] text-[#334155] rounded text-label-md font-label-md uppercase tracking-wider border border-[#E2E8F0]">
+                <span className="px-2 py-1 bg-[#F5F1E8] text-[#5C594E] rounded text-label-md font-label-md uppercase tracking-wider border border-[#DAD5C6]">
                   Landmark
                 </span>
               )}
@@ -207,9 +207,9 @@ export default function ArticleReader({ post }: ArticleReaderProps) {
             <h1 className="text-headline-lg-mobile md:text-headline-lg font-headline-lg-mobile md:font-headline-lg text-on-surface mb-6 leading-tight">
               {post.title}
             </h1>
-            <div className="flex items-center gap-4 py-4 border-y border-[#E2E8F0]">
+            <div className="flex items-center gap-4 py-4 border-y border-[#DAD5C6]">
               {post.author.image ? (
-                <div className="w-10 h-10 rounded-full bg-surface-variant overflow-hidden border border-[#E2E8F0]">
+                <div className="w-10 h-10 rounded-full bg-surface-variant overflow-hidden border border-[#DAD5C6]">
                   <img
                     alt={post.author.name}
                     className="w-full h-full object-cover"
@@ -217,7 +217,7 @@ export default function ArticleReader({ post }: ArticleReaderProps) {
                   />
                 </div>
               ) : (
-                <div className="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center border border-[#E2E8F0] text-sm font-bold">
+                <div className="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center border border-[#DAD5C6] text-sm font-bold">
                   {post.author.name.charAt(0)}
                 </div>
               )}
@@ -228,12 +228,12 @@ export default function ArticleReader({ post }: ArticleReaderProps) {
                 </div>
               </div>
               <div className="ml-auto flex gap-2">
-                <button className="p-2 border border-[#E2E8F0] rounded hover:border-primary transition-colors bg-white">
+                <button className="p-2 border border-[#DAD5C6] rounded hover:border-primary transition-colors bg-white">
                   <span className="material-symbols-outlined text-[20px] text-on-surface">
                     bookmark_add
                   </span>
                 </button>
-                <button className="p-2 border border-[#E2E8F0] rounded hover:border-primary transition-colors bg-white">
+                <button className="p-2 border border-[#DAD5C6] rounded hover:border-primary transition-colors bg-white">
                   <span className="material-symbols-outlined text-[20px] text-on-surface">share</span>
                 </button>
               </div>
@@ -241,9 +241,9 @@ export default function ArticleReader({ post }: ArticleReaderProps) {
           </header>
 
           {/* Article Body */}
-          <div className="prose-serif text-body-lg font-body-lg text-[#1E293B] leading-[1.8] space-y-8">
+          <div className="prose-serif text-body-lg font-body-lg text-[#1A1A18] leading-[1.8] space-y-8">
             {post.mainImage && (
-              <div className="w-full h-64 md:h-96 bg-surface-variant rounded border border-[#E2E8F0] mb-8 overflow-hidden relative">
+              <div className="w-full h-64 md:h-96 bg-surface-variant rounded border border-[#DAD5C6] mb-8 overflow-hidden relative">
                 <img
                   src={urlForImage(post.mainImage)}
                   alt={post.title}

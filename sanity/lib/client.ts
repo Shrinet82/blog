@@ -7,5 +7,5 @@ export const client = createClient({
   projectId,
   dataset,
   apiVersion: "2024-07-10",
-  useCdn: false, // Set to false to always bypass cache or true in production
+  useCdn: process.env.NODE_ENV === "production",
 });

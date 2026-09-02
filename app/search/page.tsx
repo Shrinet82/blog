@@ -17,8 +17,9 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
   let posts: Post[] = [];
   try {
     if (query.trim()) {
-      const groqQuery = `*[_type == "post" && (title match $searchQuery || excerpt match $searchQuery || body[].children[].text match $searchQuery)] | order(publishedAt desc) {
+      const groqQuery = `*[_type in ["currentAffairs", "caseLaw", "generalStudies"] && (title match $searchQuery || excerpt match $searchQuery || body[].children[].text match $searchQuery)] | order(publishedAt desc) {
         _id,
+        _type,
         title,
         slug,
         excerpt,
@@ -30,10 +31,12 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
           role,
           image
         },
-        categories[]-> {
-          title,
-          slug
-        }
+        "categories": select(
+          _type == "currentAffairs" => [{"title": "Current Affairs", "slug": {"current": "current-affairs"}}],
+          _type == "caseLaw" => [{"title": "Case Laws", "slug": {"current": "case-laws"}}],
+          _type == "generalStudies" => [{"title": "General Studies", "slug": {"current": "general-studies"}}],
+          categories[]-> { title, slug }
+        )
       }`;
       posts = await client.fetch(groqQuery, { searchQuery: `*${query}*` });
     }
